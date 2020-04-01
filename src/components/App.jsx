@@ -1,8 +1,13 @@
 import React from 'react';
+import World from './World';
 
 class App extends React.Component {
     render() {
-        return null;
+        return(
+            <>
+                <World worldData={{}}></World>
+            </>
+        );
     }
 }
 

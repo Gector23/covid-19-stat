@@ -29,7 +29,7 @@ class Location extends React.Component {
                     <div>
                         <div>Existing:</div>
                         <div>
-                            <span>{this.props.localData.existing}</span>
+                            <span>{this.props.localData.active}</span>
                         </div>
                     </div>
                     <div>

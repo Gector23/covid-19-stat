@@ -31,6 +31,18 @@ class App extends React.Component {
         fetch("https://coronavirus-19-api.herokuapp.com/all")
         .then(response => response.json())
         .then(data => this.setState(() => ({worldData: data})));
+
+        fetch("https://coronavirus-19-api.herokuapp.com/countries")
+        .then(response => response.json())
+        .then(data => {
+            data.sort((a, b) => b.cases - a.cases).forEach(elemnt => {
+                for (let prop in elemnt) {
+                    if (elemnt[prop] === 0) elemnt[prop] = "-";
+                }
+            });
+
+            this.setState(() => ({allCountriesData: data}));
+        });
     }
 
     render() {

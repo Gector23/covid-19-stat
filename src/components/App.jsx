@@ -1,6 +1,7 @@
 import React from 'react';
 import Location from './Location';
 import World from './World';
+import Table from './Table';
 
 class App extends React.Component {
     constructor(props) {
@@ -8,13 +9,14 @@ class App extends React.Component {
 
         this.state = {
             localData: {},
-            worldData: {}
+            worldData: {},
+            allCountriesData: []
         }
     }
 
     componentDidMount() {
         new Promise((resolve) => {navigator.geolocation.getCurrentPosition(resolve)})
-        .then(position => fetch(`https://geocode.xyz/${position.coords.latitude},${position.coords.longitude}?geoit=json`))
+        .then(position => fetch(`https://geocode.xyz/${position.coords.latitude},${position.coords.longitude}?json=1`))
         .then(response => response.json())
         .then(location => fetch(`https://coronavirus-19-api.herokuapp.com/countries/${location.country}`))
         .then(response => response.json())
@@ -24,7 +26,7 @@ class App extends React.Component {
             }
 
             this.setState(() => ({localData: data}));
-        })
+        });
 
         fetch("https://coronavirus-19-api.herokuapp.com/all")
         .then(response => response.json())
@@ -36,6 +38,7 @@ class App extends React.Component {
             <>
                 <Location localData={this.state.localData}></Location>
                 <World worldData={this.state.worldData}></World>
+                <Table allCountriesData={this.state.allCountriesData}></Table>
             </>
         );
     }

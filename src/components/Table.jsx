@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './Header';
 
 class Table extends React.Component {
     render() {
@@ -23,7 +24,7 @@ class Table extends React.Component {
 
         return (
             <div>
-                <div>All data</div>
+                <Header header="All data"></Header>
                 <table>
                     <thead>
                         <tr>

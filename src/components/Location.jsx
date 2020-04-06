@@ -1,10 +1,11 @@
 import React from 'react';
+import Header from './Header';
 
 class Location extends React.Component {
     render() {
         return(
             <div>
-                <div>{this.props.localData.country}</div>
+                <Header header={this.props.localData.country}></Header>
                 <div>
                     <div>
                         <div>Confirmed:</div>

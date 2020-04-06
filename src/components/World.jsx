@@ -1,10 +1,11 @@
 import React from 'react';
+import Header from './Header';
 
 class World extends React.Component {
     render() {
         return(
             <div>
-                <div>World</div>
+                <Header header="World"></Header>
                 <div>
                     <div>
                         <span>Confirmed:</span>

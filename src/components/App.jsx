@@ -1,7 +1,8 @@
 import React from 'react';
 import Location from './Location';
 import World from './World';
-import Table from './Table';
+import AllData from './AllData';
+import styles from '../styles/App.module.scss';
 
 class App extends React.Component {
     constructor(props) {
@@ -26,7 +27,8 @@ class App extends React.Component {
             }
 
             this.setState(() => ({localData: data}));
-        });
+        })
+        .catch(e => this.setState(() => ({localData: e})));
 
         fetch("https://coronavirus-19-api.herokuapp.com/all")
         .then(response => response.json())
@@ -47,11 +49,11 @@ class App extends React.Component {
 
     render() {
         return(
-            <>
+            <div className={styles.container}>
                 <Location localData={this.state.localData}></Location>
                 <World worldData={this.state.worldData}></World>
-                <Table allCountriesData={this.state.allCountriesData}></Table>
-            </>
+                <AllData allCountriesData={this.state.allCountriesData}></AllData>
+            </div> 
         );
     }
 }

@@ -1,0 +1,18 @@
+@import './styles/variables';
+
+.page {
+    margin: 0;
+    padding: map-get($vertical-indentation, "s") 10px;
+    background-color: $page-bg;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+
+    @media (min-width: 765px) {
+        padding: map-get($vertical-indentation, "m") 10px;
+    }
+
+    @media (min-width: 1300px) {
+        padding: map-get($vertical-indentation, "l") 10px;
+    }
+}

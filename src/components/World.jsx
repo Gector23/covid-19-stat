@@ -1,23 +1,30 @@
 import React from 'react';
 import Header from './Header';
+import styles from '../styles/World.module.scss';
 
 class World extends React.Component {
     render() {
         return(
-            <div>
+            <div className={styles.container}>
                 <Header header="World"></Header>
-                <div>
-                    <div>
-                        <span>Confirmed:</span>
-                        <span>{this.props.worldData.cases}</span>
+                <div className={styles.categories}>
+                    <div className={styles.category}>
+                        <span className={styles["category-name"]}>Confirmed:</span>
+                        <span className={styles["data-confirmed"]}>
+                            {this.props.worldData.cases}
+                        </span>
                     </div>
-                    <div>
-                        <span>Deaths:</span>
-                        <span>{this.props.worldData.deaths}</span>
+                    <div className={styles.category}>
+                        <span className={styles["category-name"]}>Deaths:</span>
+                        <span className={styles["data-deaths"]}>
+                            {this.props.worldData.deaths}
+                        </span>
                     </div>
-                    <div>
-                        <span>Recovered:</span>
-                        <span>{this.props.worldData.recovered}</span>
+                    <div className={styles.category}>
+                        <span className={styles["category-name"]}>Recovered:</span>
+                        <span className={styles["data-recovered"]}>
+                            {this.props.worldData.recovered}
+                        </span>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,83 @@
+@import './variables';
+
+$categories-height: ("s": 80px, "m": 40px, "l": 100px);
+
+.container {
+    width: 100%;
+    margin-bottom: map-get($vertical-indentation, "s");
+    padding: {
+        top: 0;
+        right: map-get($horizontal-indentation, "s");
+        bottom: 15px;
+        left: map-get($horizontal-indentation, "s");
+    };
+    box-sizing: border-box;
+    border-radius: $containers-border-radius;
+    background-color: $containers-bg;
+    font-size: 18px;
+
+    @media (min-width: 765px) {
+        margin-bottom: map-get($vertical-indentation, "m");
+        padding: {
+            right: map-get($horizontal-indentation, "m");
+            left: map-get($horizontal-indentation, "m");
+        };
+    }
+
+    @media (min-width: 1300px) {
+        width: 20%;
+        margin-bottom: map-get($vertical-indentation, "l");
+        padding: {
+            right: map-get($horizontal-indentation, "l");
+            left: map-get($horizontal-indentation, "l");
+        };
+    }
+}
+
+.categories {
+    height: map-get($categories-height, "s");
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media (min-width: 765px) {
+        height: map-get($categories-height, "m");
+        flex-direction: row;
+        align-items: center;
+    }
+
+    @media (min-width: 1300px) {
+        height: map-get($categories-height, "l");
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.category {
+    display: inline-flex;
+    justify-content: space-between;
+
+    @media (min-width: 765px) {
+        width: 25%;
+    }
+
+    @media (min-width: 1300px) {
+        width: auto;
+    }
+}
+
+.category-name {
+    color: $category-color;
+}
+
+.data-confirmed {
+    color: $confirmed-color;
+}
+
+.data-deaths {
+    color: $deaths-color;
+}
+
+.data-recovered {
+    color: $recovered-color;
+}

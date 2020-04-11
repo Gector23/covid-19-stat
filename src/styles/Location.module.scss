@@ -1,0 +1,94 @@
+@import './variables';
+
+$categories-height: ("s": 180px, "m": 80px, "l": 100px);
+
+.container {
+    width: 100%;
+    margin-bottom: map-get($vertical-indentation, "s");
+    padding: {
+        top: 0;
+        right: map-get($horizontal-indentation, "s");
+        bottom: 15px;
+        left: map-get($horizontal-indentation, "s");
+    };
+    box-sizing: border-box;
+    border-radius: $containers-border-radius;
+    background-color: $containers-bg;
+    font-size: 18px;
+
+    @media (min-width: 765px) {
+        margin-bottom: map-get($vertical-indentation, "m");
+        padding: {
+            right: map-get($horizontal-indentation, "m");
+            left: map-get($horizontal-indentation, "m");
+        };
+    }
+
+    @media (min-width: 1300px) {
+        width: 70%;
+        margin-bottom: map-get($vertical-indentation, "l");
+        padding: {
+            right: map-get($horizontal-indentation, "l");
+            left: map-get($horizontal-indentation, "l");
+        };
+    }
+}
+
+.categories {
+    height: map-get($categories-height, "s");
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    @media (min-width: 765px) {
+        flex-direction: row;
+        height: map-get($categories-height, "m");
+    }
+
+    @media (min-width: 1300px) {
+        height: map-get($categories-height, "l");
+    }
+}
+
+.category {
+    height: 80px;
+
+    @media (min-width: 765px) {
+        width: auto;
+        height: 100%;
+    }
+}
+
+.category-name {
+    height: 35%;
+    color: $category-color;
+}
+
+.data {
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.data-confirmed {
+    color: $confirmed-color;
+}
+
+.data-deaths {
+    color: $deaths-color;
+}
+
+.data-recovered {
+    color: $recovered-color;
+}
+
+.data-existing {
+    color: $existing-color;
+}
+
+.data-critical {
+    color: $critical-color;
+}

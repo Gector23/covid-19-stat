@@ -1,7 +1,7 @@
 @import './variables';
 
 .container {
-    height: 60px;
+    height: $header-height;
     display: flex;
     justify-content: center;
     align-items: center;

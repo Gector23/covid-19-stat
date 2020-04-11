@@ -1,14 +1,15 @@
 @import './variables';
 
-$categories-height: ("s": 80px, "m": 40px, "l": 100px);
+$categories-height: ("s": 95px, "m": 55px, "l": 115px);
 
 .container {
     width: 100%;
+    height: $header-height + map-get($categories-height, "s");
     margin-bottom: map-get($vertical-indentation, "s");
     padding: {
         top: 0;
         right: map-get($horizontal-indentation, "s");
-        bottom: 15px;
+        bottom: 0;
         left: map-get($horizontal-indentation, "s");
     };
     box-sizing: border-box;
@@ -17,6 +18,7 @@ $categories-height: ("s": 80px, "m": 40px, "l": 100px);
     font-size: 18px;
 
     @media (min-width: 765px) {
+        height: $header-height + map-get($categories-height, "m");
         margin-bottom: map-get($vertical-indentation, "m");
         padding: {
             right: map-get($horizontal-indentation, "m");
@@ -26,6 +28,7 @@ $categories-height: ("s": 80px, "m": 40px, "l": 100px);
 
     @media (min-width: 1300px) {
         width: 20%;
+        height: $header-height + map-get($categories-height, "l");
         margin-bottom: map-get($vertical-indentation, "l");
         padding: {
             right: map-get($horizontal-indentation, "l");
@@ -36,6 +39,8 @@ $categories-height: ("s": 80px, "m": 40px, "l": 100px);
 
 .categories {
     height: map-get($categories-height, "s");
+    padding-bottom: 15px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

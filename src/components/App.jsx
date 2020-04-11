@@ -18,8 +18,22 @@ class App extends React.Component {
     componentDidMount() {
         new Promise((resolve) => {navigator.geolocation.getCurrentPosition(resolve)})
         .then(position => fetch(`https://geocode.xyz/${position.coords.latitude},${position.coords.longitude}?json=1`))
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                throw new Error(`Status ${response.status}`)
+            }
+        })
         .then(response => response.json())
         .then(location => fetch(`https://coronavirus-19-api.herokuapp.com/countries/${location.country}`))
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                throw new Error(`Status ${response.status}`)
+            }
+        })
         .then(response => response.json())
         .then(data => {
             for (let prop in data) {
@@ -28,13 +42,28 @@ class App extends React.Component {
 
             this.setState(() => ({localData: data}));
         })
-        .catch(e => this.setState(() => ({localData: e})));
+        .catch(e => this.setState(() => ({localData: {message: e.message}})));
 
         fetch("https://coronavirus-19-api.herokuapp.com/all")
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                throw new Error(`Status ${response.status}`)
+            }
+        })
         .then(response => response.json())
-        .then(data => this.setState(() => ({worldData: data})));
+        .then(data => this.setState(() => ({worldData: data})))
+        .catch(e => this.setState(() => ({worldData: {message: e.message}})));
 
         fetch("https://coronavirus-19-api.herokuapp.com/countries")
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                throw new Error(`Status ${response.status}`)
+            }
+        })
         .then(response => response.json())
         .then(data => {
             data.sort((a, b) => b.cases - a.cases).forEach(elemnt => {
@@ -44,7 +73,8 @@ class App extends React.Component {
             });
 
             this.setState(() => ({allCountriesData: data}));
-        });
+        })
+        .catch(e => this.setState(() => ({allCountriesData: {message: e.message}})));
     }
 
     render() {

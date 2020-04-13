@@ -2,31 +2,30 @@ import React from 'react';
 import Header from './Header';
 import Loading from './Loading';
 import Error from './Error';
-import styles from '../styles/AllData.module.scss';
+import styles from '../styles/Countries.module.scss';
 
-class AllData extends React.Component {
+class Countries extends React.Component {
     render() {
         let containerInner;
 
-        if (Object.keys(this.props.allCountriesData).length) {
-            if ("message" in this.props.allCountriesData) {
-                containerInner = <Error message={this.props.allCountriesData.message}></Error>
+        if (Object.keys(this.props.countries).length) {
+            if ("message" in this.props.countries) {
+                containerInner = <Error message={this.props.countries.message}></Error>
             } else {
-                let tBody = this.props.allCountriesData.map((element, index) => {
+                let tBody = this.props.countries.data.map((element, index) => {
+                    const active = element.latest_data.confirmed - element.latest_data.deaths - element.latest_data.recovered;
                     return (
                         <tr className={styles["table-row"]} key={index}>
-                            <td>{element.country}</td>
-                            <td className={styles["data-confirmed"]}>{element.cases}</td>
-                            <td className={styles["data-today-confirmed"]}>{element.todayCases}</td>
-                            <td className={styles["data-deaths"]}>{element.deaths}</td>
-                            <td className={styles["data-today-deaths"]}>{element.todayDeaths}</td>
-                            <td className={styles["data-recovered"]}>{element.recovered}</td>
-                            <td className={styles["data-existing"]}>{element.active}</td>
-                            <td className={styles["data-critical"]}>{element.critical}</td>
-                            <td>{element.totalTests}</td>
-                            <td>{element.casesPerOneMillion}</td>
-                            <td>{element.deathsPerOneMillion}</td>
-                            <td>{element.testsPerOneMillion}</td>
+                            <td>{element.name.split(",")[0]}</td>
+                            <td className={styles["data-confirmed"]}>{element.latest_data.confirmed}</td>
+                            <td className={styles["data-confirmed"]}>{element.today.confirmed}</td>
+                            <td className={styles["data-deaths"]}>{element.latest_data.deaths}</td>
+                            <td className={styles["data-deaths"]}>{element.today.deaths}</td>
+                            <td className={styles["data-deaths"]}>{Math.round(element.latest_data.calculated.death_rate) + "%"}</td>
+                            <td className={styles["data-recovered"]}>{element.latest_data.recovered}</td>
+                            <td className={styles["data-recovered"]}>{Math.round(element.latest_data.calculated.recovery_rate) + "%"}</td>
+                            <td className={styles["data-active"]}>{active}</td>
+                            <td className={styles["data-critical"]}>{element.latest_data.critical}</td>
                         </tr>
                     )
                 });
@@ -43,13 +42,11 @@ class AllData extends React.Component {
                                         <th className={styles["category-name"]}>Today confirmed</th>
                                         <th className={styles["category-name"]}>Deaths</th>
                                         <th className={styles["category-name"]}>Today deaths</th>
+                                        <th className={styles["category-name"]}>Deaths rate</th>
                                         <th className={styles["category-name"]}>Recovered</th>
+                                        <th className={styles["category-name"]}>Recovery rate</th>
                                         <th className={styles["category-name"]}>Existing</th>
                                         <th className={styles["category-name"]}>Critical</th>
-                                        <th className={styles["category-name"]}>Tests</th>
-                                        <th className={styles["category-name"]} title="Сonfirmations per million">CPM</th>
-                                        <th className={styles["category-name"]} title="Deaths per million">DPM</th>
-                                        <th className={styles["category-name"]} title="Tests per million">TPM</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,4 +69,4 @@ class AllData extends React.Component {
     }
 }
 
-export default AllData;
+export default Countries;

@@ -8,9 +8,9 @@ class World extends React.Component {
     render() {
         let containerInner;
 
-        if (Object.keys(this.props.worldData).length) {
-            if ("message" in this.props.worldData) {
-                containerInner = <Error message={this.props.worldData.message}></Error>
+        if (Object.keys(this.props.timeline).length) {
+            if ("message" in this.props.timeline) {
+                containerInner = <Error message={this.props.timeline.message}></Error>
             } else {
                 containerInner = (
                     <>
@@ -19,19 +19,25 @@ class World extends React.Component {
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Confirmed:</span>
                                 <span className={styles["data-confirmed"]}>
-                                    {this.props.worldData.cases}
+                                    {this.props.timeline.data[0].confirmed}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Deaths:</span>
                                 <span className={styles["data-deaths"]}>
-                                    {this.props.worldData.deaths}
+                                    {this.props.timeline.data[0].deaths}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Recovered:</span>
                                 <span className={styles["data-recovered"]}>
-                                    {this.props.worldData.recovered}
+                                    {this.props.timeline.data[0].recovered}
+                                </span>
+                            </div>
+                            <div className={styles.category}>
+                                <span className={styles["category-name"]}>Active:</span>
+                                <span className={styles["data-active"]}>
+                                    {this.props.timeline.data[0].active}
                                 </span>
                             </div>
                         </div>

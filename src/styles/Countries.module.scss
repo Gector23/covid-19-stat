@@ -43,28 +43,8 @@
     text-align: left;
 }
 
-.data-confirmed, .data-today-confirmed {
-    color: $confirmed-color;
-}
-
-.data-deaths, .data-today-deaths {
-    color: $deaths-color;
-}
-
-.data-recovered {
-    color: $recovered-color;
-}
-
-.data-existing {
-    color: $existing-color;
-}
-
-.data-critical {
-    color: $critical-color;
-}
-
 .category-name {
-    padding-bottom: 10px;
+    padding: 10px;
     font-size: 18px;
     color: $category-color;
 }
@@ -75,4 +55,24 @@
     &:hover {
         background-color: #3c404d;
     }
+}
+
+.data-confirmed {
+    color: $confirmed-color;
+}
+
+.data-deaths {
+    color: $deaths-color;
+}
+
+.data-recovered {
+    color: $recovered-color;
+}
+
+.data-active {
+    color: $active-color;
+}
+
+.data-critical {
+    color: $critical-color;
 }

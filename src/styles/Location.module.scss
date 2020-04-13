@@ -27,7 +27,6 @@ $categories-height: ("s": 195px, "m": 95px, "l": 115px);
     }
 
     @media (min-width: 1300px) {
-        width: 70%;
         height: $header-height + map-get($categories-height, "l");
         margin-bottom: map-get($vertical-indentation, "l");
         padding: {
@@ -90,10 +89,14 @@ $categories-height: ("s": 195px, "m": 95px, "l": 115px);
     color: $recovered-color;
 }
 
-.data-existing {
-    color: $existing-color;
+.data-active {
+    color: $active-color;
 }
 
 .data-critical {
     color: $critical-color;
+}
+
+.data-cpm {
+    color: $cpm-color;
 }

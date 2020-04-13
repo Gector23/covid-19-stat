@@ -5,6 +5,26 @@ import Error from './Error';
 import styles from '../styles/World.module.scss';
 
 class World extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.processTimelineData = this.processTimelineData.bind(this);
+    }
+
+    processTimelineData(obj) {
+        let processedObj = {};
+
+        for (let prop in obj) {
+            if (typeof(obj[prop]) === "object" && obj[prop]) {
+                processedObj[prop] = this.processTimelineData(obj[prop]);
+            } else if (typeof(obj[prop]) === "number") {
+                processedObj[prop] =  obj[prop] === 0 ? "-" : obj[prop].toLocaleString("ru");
+            }
+        }
+
+        return processedObj;
+    }
+
     render() {
         let containerInner;
 
@@ -12,6 +32,8 @@ class World extends React.Component {
             if ("message" in this.props.timeline) {
                 containerInner = <Error message={this.props.timeline.message}></Error>
             } else {
+                let processedData = this.processTimelineData(this.props.timeline.data[0]);
+
                 containerInner = (
                     <>
                         <Header header="World"></Header>
@@ -19,25 +41,25 @@ class World extends React.Component {
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Confirmed:</span>
                                 <span className={styles["data-confirmed"]}>
-                                    {this.props.timeline.data[0].confirmed}
+                                    {processedData.confirmed}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Deaths:</span>
                                 <span className={styles["data-deaths"]}>
-                                    {this.props.timeline.data[0].deaths}
+                                    {processedData.deaths}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Recovered:</span>
                                 <span className={styles["data-recovered"]}>
-                                    {this.props.timeline.data[0].recovered}
+                                    {processedData.recovered}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Active:</span>
                                 <span className={styles["data-active"]}>
-                                    {this.props.timeline.data[0].active}
+                                    {processedData.active}
                                 </span>
                             </div>
                         </div>

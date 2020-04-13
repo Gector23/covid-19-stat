@@ -5,6 +5,34 @@ import Error from './Error';
 import styles from '../styles/Countries.module.scss';
 
 class Countries extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.processCountriesData = this.processCountriesData.bind(this);
+    }
+
+    processCountriesData(obj) {
+        let processedObj = {};
+
+        for (let prop in obj) {
+            if (typeof(obj[prop]) === "object" && obj[prop]) {
+                processedObj[prop] = this.processCountriesData(obj[prop]);
+            } else if (typeof(obj[prop]) === "number") {
+                processedObj[prop] =  obj[prop] === 0 ? "-" : obj[prop].toLocaleString("ru");
+            }
+        }
+
+        if ("name" in obj) {
+            processedObj.latest_data.active = obj.latest_data.confirmed - obj.latest_data.deaths - obj.latest_data.recovered;
+            processedObj.latest_data.active = processedObj.latest_data.active === 0 ? "-" : processedObj.latest_data.active.toLocaleString("ru");
+
+            processedObj.latest_data.calculated.death_rate = (Math.round(obj.latest_data.calculated.death_rate * 100) / 100) + "%";
+            processedObj.latest_data.calculated.recovery_rate = (Math.round(obj.latest_data.calculated.recovery_rate * 100) / 100) + "%";
+        }
+
+        return processedObj;
+    }
+
     render() {
         let containerInner;
 
@@ -13,26 +41,27 @@ class Countries extends React.Component {
                 containerInner = <Error message={this.props.countries.message}></Error>
             } else {
                 let tBody = this.props.countries.data.map((element, index) => {
-                    const active = element.latest_data.confirmed - element.latest_data.deaths - element.latest_data.recovered;
+                    let processedData = this.processCountriesData(element);
+
                     return (
                         <tr className={styles["table-row"]} key={index}>
                             <td>{element.name.split(",")[0]}</td>
-                            <td className={styles["data-confirmed"]}>{element.latest_data.confirmed}</td>
-                            <td className={styles["data-confirmed"]}>{element.today.confirmed}</td>
-                            <td className={styles["data-deaths"]}>{element.latest_data.deaths}</td>
-                            <td className={styles["data-deaths"]}>{element.today.deaths}</td>
-                            <td className={styles["data-deaths"]}>{Math.round(element.latest_data.calculated.death_rate) + "%"}</td>
-                            <td className={styles["data-recovered"]}>{element.latest_data.recovered}</td>
-                            <td className={styles["data-recovered"]}>{Math.round(element.latest_data.calculated.recovery_rate) + "%"}</td>
-                            <td className={styles["data-active"]}>{active}</td>
-                            <td className={styles["data-critical"]}>{element.latest_data.critical}</td>
+                            <td className={styles["data-confirmed"]}>{processedData.latest_data.confirmed}</td>
+                            <td className={styles["data-confirmed"]}>{processedData.today.confirmed}</td>
+                            <td className={styles["data-deaths"]}>{processedData.latest_data.deaths}</td>
+                            <td className={styles["data-deaths"]}>{processedData.today.deaths}</td>
+                            <td className={styles["data-deaths"]}>{processedData.latest_data.calculated.death_rate}</td>
+                            <td className={styles["data-recovered"]}>{processedData.latest_data.recovered}</td>
+                            <td className={styles["data-recovered"]}>{processedData.latest_data.calculated.recovery_rate}</td>
+                            <td className={styles["data-active"]}>{processedData.latest_data.active}</td>
+                            <td className={styles["data-critical"]}>{processedData.latest_data.critical}</td>
                         </tr>
                     )
                 });
     
                 containerInner = (
                     <>
-                        <Header header="All data"></Header>
+                        <Header header="Countries"></Header>
                         <div className={styles.data}>
                             <table className={styles.table}>
                                 <thead>

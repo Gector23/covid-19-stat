@@ -5,6 +5,31 @@ import Error from './Error';
 import styles from '../styles/Location.module.scss';
 
 class Location extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.processLocalData = this.processLocalData.bind(this);
+    }
+
+    processLocalData(obj) {
+        let processedObj = {};
+
+        for (let prop in obj) {
+            if (typeof(obj[prop]) === "object" && obj[prop]) {
+                processedObj[prop] = this.processLocalData(obj[prop]);
+            } else if (typeof(obj[prop]) === "number") {
+                processedObj[prop] =  obj[prop] === 0 ? "-" : obj[prop].toLocaleString("ru");
+            }
+        }
+
+        if ("name" in obj) {
+            processedObj.latest_data.active = obj.latest_data.confirmed - obj.latest_data.deaths - obj.latest_data.recovered;
+            processedObj.latest_data.active = processedObj.latest_data.active === 0 ? "-" : processedObj.latest_data.active.toLocaleString("ru");
+        }
+
+        return processedObj;
+    }
+
     render() {
         let containerInner;
 
@@ -12,7 +37,7 @@ class Location extends React.Component {
             if ("message" in this.props.local) {
                 containerInner = <Error message={this.props.local.message}></Error>
             } else {
-                const active = this.props.local.latest_data.confirmed - this.props.local.latest_data.deaths - this.props.local.latest_data.recovered;
+                let processedData = this.processLocalData(this.props.local);
 
                 containerInner = (
                     <>
@@ -21,39 +46,39 @@ class Location extends React.Component {
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Confirmed:</div>
                                 <div className={`${styles.data} ${styles["data-confirmed"]}`}>
-                                    <span>{this.props.local.latest_data.confirmed}</span>
-                                    <span>{this.props.local.today.confirmed}</span>
+                                    <span>{processedData.latest_data.confirmed}</span>
+                                    <span>{processedData.today.confirmed}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Deaths:</div>
                                 <div className={`${styles.data} ${styles["data-deaths"]}`}>
-                                    <span>{this.props.local.latest_data.deaths}</span>
-                                    <span>{this.props.local.today.deaths}</span>
+                                    <span>{processedData.latest_data.deaths}</span>
+                                    <span>{processedData.today.deaths}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Recovered:</div>
                                 <div className={`${styles.data} ${styles["data-recovered"]}`}>
-                                    <span>{this.props.local.latest_data.recovered}</span>
+                                    <span>{processedData.latest_data.recovered}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Active:</div>
                                 <div className={`${styles.data} ${styles["data-active"]}`}>
-                                    <span>{active}</span>
+                                    <span>{processedData.latest_data.active}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Critical:</div>
                                 <div className={`${styles.data} ${styles["data-critical"]}`}>
-                                    <span>{this.props.local.latest_data.critical}</span>
+                                    <span>{processedData.latest_data.critical}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Cases per million:</div>
                                 <div className={`${styles.data} ${styles["data-cpm"]}`}>
-                                    <span>{this.props.local.latest_data.calculated.cases_per_million_population}</span>
+                                    <span>{processedData.latest_data.calculated.cases_per_million_population}</span>
                                 </div>
                             </div>
                         </div>

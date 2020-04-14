@@ -22,11 +22,6 @@ class Location extends React.Component {
             }
         }
 
-        if ("name" in obj) {
-            processedObj.latest_data.active = obj.latest_data.confirmed - obj.latest_data.deaths - obj.latest_data.recovered;
-            processedObj.latest_data.active = processedObj.latest_data.active === 0 ? "-" : processedObj.latest_data.active.toLocaleString("ru");
-        }
-
         return processedObj;
     }
 
@@ -45,39 +40,39 @@ class Location extends React.Component {
                         <div className={styles.categories}>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Confirmed:</div>
-                                <div className={`${styles.data} ${styles["data-confirmed"]}`}>
+                                <div className={`${styles.data} confirmed`}>
                                     <span>{processedData.latest_data.confirmed}</span>
                                     <span>{processedData.today.confirmed}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Deaths:</div>
-                                <div className={`${styles.data} ${styles["data-deaths"]}`}>
+                                <div className={`${styles.data} deaths`}>
                                     <span>{processedData.latest_data.deaths}</span>
                                     <span>{processedData.today.deaths}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Recovered:</div>
-                                <div className={`${styles.data} ${styles["data-recovered"]}`}>
+                                <div className={`${styles.data} recovered`}>
                                     <span>{processedData.latest_data.recovered}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Active:</div>
-                                <div className={`${styles.data} ${styles["data-active"]}`}>
+                                <div className={`${styles.data} active`}>
                                     <span>{processedData.latest_data.active}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Critical:</div>
-                                <div className={`${styles.data} ${styles["data-critical"]}`}>
+                                <div className={`${styles.data} critical`}>
                                     <span>{processedData.latest_data.critical}</span>
                                 </div>
                             </div>
                             <div className={styles.category}>
                                 <div className={styles["category-name"]}>Cases per million:</div>
-                                <div className={`${styles.data} ${styles["data-cpm"]}`}>
+                                <div className={`${styles.data} cpm`}>
                                     <span>{processedData.latest_data.calculated.cases_per_million_population}</span>
                                 </div>
                             </div>

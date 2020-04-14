@@ -25,7 +25,7 @@ class App extends React.Component {
             }
         })
         .then(response => response.json())
-        .then(data => this.setState(() => ({timeline: data})))
+        .then(timelineData => this.setState(() => ({timeline: timelineData})))
         .catch(e => this.setState(() => ({timeline: {message: e.message}})));
 
         fetch("https://corona-api.com/countries")
@@ -37,7 +37,10 @@ class App extends React.Component {
             }
         })
         .then(response => response.json())
-        .then(data => this.setState(() => ({countries: data})))
+        .then(countriesData => {
+            countriesData.data.map(country => country.latest_data.active = country.latest_data.confirmed - country.latest_data.deaths - country.latest_data.recovered);
+            this.setState(() => ({countries: countriesData}));
+        })
         .catch(e => this.setState(() => ({countries: {message: e.message}})))
         .then( () => new Promise((resolve) => {navigator.geolocation.getCurrentPosition(resolve)}))
         .then(position => fetch(`https://geocode.xyz/${position.coords.latitude},${position.coords.longitude}?json=1`))
@@ -49,13 +52,14 @@ class App extends React.Component {
             }
         })
         .then(response => response.json())
-        .then(location => this.setState(() => ({local: this.state.countries.data.find(country => country.code === location.state)})))
+        .then(location => this.setState(() => ({local: this.state.countries.data.find(country => country.code === location.prov)})))
         .catch(e => this.setState(() => ({local: {message: e.message}})));
     }
 
     render() {
         return(
             <div className={styles.container}>
+                <h1 className="header">Covid-19</h1>
                 <Location local={this.state.local}></Location>
                 <World timeline={this.state.timeline}></World>
                 <Countries countries={this.state.countries}></Countries>

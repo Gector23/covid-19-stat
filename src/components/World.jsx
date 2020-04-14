@@ -40,25 +40,25 @@ class World extends React.Component {
                         <div className={styles.categories}>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Confirmed:</span>
-                                <span className={styles["data-confirmed"]}>
+                                <span className="confirmed">
                                     {processedData.confirmed}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Deaths:</span>
-                                <span className={styles["data-deaths"]}>
+                                <span className="deaths">
                                     {processedData.deaths}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Recovered:</span>
-                                <span className={styles["data-recovered"]}>
+                                <span className="recovered">
                                     {processedData.recovered}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Active:</span>
-                                <span className={styles["data-active"]}>
+                                <span className="active">
                                     {processedData.active}
                                 </span>
                             </div>

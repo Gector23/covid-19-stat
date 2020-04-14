@@ -1,6 +1,6 @@
 @import './variables';
 
-$categories-height: ("s": 195px, "m": 95px, "l": 115px);
+$categories-height: ("s": 240px, "m": 95px, "l": 115px);
 
 .container {
     width: 100%;
@@ -41,12 +41,10 @@ $categories-height: ("s": 195px, "m": 95px, "l": 115px);
     padding-bottom: 15px;
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     flex-wrap: wrap;
 
     @media (min-width: 765px) {
-        flex-direction: row;
         height: map-get($categories-height, "m");
     }
 
@@ -56,7 +54,8 @@ $categories-height: ("s": 195px, "m": 95px, "l": 115px);
 }
 
 .category {
-    height: 80px;
+    width: 30%;
+    height: 100px;
 
     @media (min-width: 765px) {
         width: auto;
@@ -65,38 +64,22 @@ $categories-height: ("s": 195px, "m": 95px, "l": 115px);
 }
 
 .category-name {
-    height: 35%;
+    height: 50%;
     color: $category-color;
+
+    @media (min-width: 765px) {
+        height: 35%;
+    }
 }
 
 .data {
-    height: 65%;
+    height: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex-wrap: wrap;
-}
 
-.data-confirmed {
-    color: $confirmed-color;
-}
-
-.data-deaths {
-    color: $deaths-color;
-}
-
-.data-recovered {
-    color: $recovered-color;
-}
-
-.data-active {
-    color: $active-color;
-}
-
-.data-critical {
-    color: $critical-color;
-}
-
-.data-cpm {
-    color: $cpm-color;
+    @media (min-width: 765px) {
+        height: 65%;
+    }
 }

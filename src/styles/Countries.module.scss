@@ -1,5 +1,7 @@
 @import './variables';
 
+$active-table-color: #3c404d;
+
 .container {
     width: 100%;
     min-height: 175px;
@@ -44,38 +46,25 @@
 }
 
 .category-name {
-    padding: {
-        right: 10px;
-        bottom: 10px;
-    };
+    width: 10%;
+    padding-right: 10px;
     font-size: 18px;
     color: $category-color;
-}
-
-.table-row {
-    height: 40px;
+    cursor: pointer;
 
     &:hover {
-        background-color: #3c404d;
+        background-color: $active-table-color;
     }
 }
 
-.data-confirmed {
-    color: $confirmed-color;
+.active-category {
+    background-color: $active-table-color;
 }
 
-.data-deaths {
-    color: $deaths-color;
-}
+.table-row {
+    height: 45px;
 
-.data-recovered {
-    color: $recovered-color;
-}
-
-.data-active {
-    color: $active-color;
-}
-
-.data-critical {
-    color: $critical-color;
+    &:hover {
+        background-color: $active-table-color;
+    }
 }

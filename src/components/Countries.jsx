@@ -8,7 +8,18 @@ class Countries extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            sort: {
+                category: "Confirmed",
+                reverse: false
+            }
+        }
+
+        this.categories = ["Country", "Confirmed", "Today confirmed", "Deaths", "Today deaths", "Deaths rate", "Recovered", "Recovery rate", "Active", "Critical"];
+
         this.processCountriesData = this.processCountriesData.bind(this);
+        this.sortData = this.sortData.bind(this);
+        this.handleActiveCategoryChange = this.handleActiveCategoryChange.bind(this);
     }
 
     processCountriesData(obj) {
@@ -23,14 +34,82 @@ class Countries extends React.Component {
         }
 
         if ("name" in obj) {
-            processedObj.latest_data.active = obj.latest_data.confirmed - obj.latest_data.deaths - obj.latest_data.recovered;
-            processedObj.latest_data.active = processedObj.latest_data.active === 0 ? "-" : processedObj.latest_data.active.toLocaleString("ru");
-
             processedObj.latest_data.calculated.death_rate = (Math.round(obj.latest_data.calculated.death_rate * 100) / 100) + "%";
             processedObj.latest_data.calculated.recovery_rate = (Math.round(obj.latest_data.calculated.recovery_rate * 100) / 100) + "%";
         }
 
         return processedObj;
+    }
+
+    sortData() {
+        switch(this.state.sort.category) {
+            case "Country":
+                this.props.countries.data.sort((a, b) => compareStrings(a.name, b.name, this.state.sort.reverse));
+                break;
+            case "Confirmed":
+                this.props.countries.data.sort((a, b) => compareNumbers(a.latest_data.confirmed, b.latest_data.confirmed, this.state.sort.reverse));
+                break;
+            case "Today confirmed":
+                this.props.countries.data.sort((a, b) => compareNumbers(a.today.confirmed, b.today.confirmed, this.state.sort.reverse));
+                break;
+            case "Deaths":
+                this.props.countries.data.sort((a, b) => compareNumbers(a.latest_data.deaths, b.latest_data.deaths, this.state.sort.reverse));
+                break;
+            case "Today deaths":
+                this.props.countries.data.sort((a, b) => compareNumbers(a.today.deaths, b.today.deaths, this.state.sort.reverse));
+                break;
+            case "Deaths rate":
+                this.props.countries.data.sort((a, b) => compareNumbers(a.latest_data.calculated.death_rate, b.latest_data.calculated.death_rate, this.state.sort.reverse));
+                break;
+            case "Recovered":
+                this.props.countries.data.sort((a, b) => compareNumbers(a.latest_data.recovered, b.latest_data.recovered, this.state.sort.reverse));
+                break;
+            case "Recovery rate":
+                this.props.countries.data.sort((a, b) => compareNumbers(a.latest_data.calculated.recovery_rate, b.latest_data.calculated.recovery_rate, this.state.sort.reverse));
+                break;
+            case "Active":
+                this.props.countries.data.sort((a, b) => compareNumbers(a.latest_data.active, b.latest_data.active, this.state.sort.reverse));
+                break;
+            case "Critical":
+                this.props.countries.data.sort((a, b) => compareNumbers(a.latest_data.critical, b.latest_data.critical, this.state.sort.reverse));
+                break;
+            default:
+                break;
+        }
+
+        function compareNumbers(a, b, reverse) {
+            if (reverse) {
+                return a - b;
+            } else {
+                return b - a;
+            }
+        }
+
+        function compareStrings(a, b, reverse) {
+            if (reverse) {
+                return a.localeCompare(b);
+            } else {
+                return b.localeCompare(a);
+            }
+        }
+    }
+
+    handleActiveCategoryChange(category) {
+        if (category === this.state.sort.category) {
+            this.setState(state => ({
+                sort: {
+                    category: state.sort.category,
+                    reverse: !state.sort.reverse
+                }
+            }));
+        } else {
+            this.setState(() => ({
+                sort: {
+                    category,
+                    reverse: false
+                }
+            }));
+        }
     }
 
     render() {
@@ -40,24 +119,35 @@ class Countries extends React.Component {
             if ("message" in this.props.countries) {
                 containerInner = <Error message={this.props.countries.message}></Error>
             } else {
-                let tBody = this.props.countries.data.map((element, index) => {
-                    let processedData = this.processCountriesData(element);
+                this.sortData();
+
+                let tBody = this.props.countries.data.map(country => {
+
+                    let processedCountryData = this.processCountriesData(country);
 
                     return (
-                        <tr className={styles["table-row"]} key={index}>
-                            <td>{element.name.split(",")[0]}</td>
-                            <td className={styles["data-confirmed"]}>{processedData.latest_data.confirmed}</td>
-                            <td className={styles["data-confirmed"]}>{processedData.today.confirmed}</td>
-                            <td className={styles["data-deaths"]}>{processedData.latest_data.deaths}</td>
-                            <td className={styles["data-deaths"]}>{processedData.today.deaths}</td>
-                            <td className={styles["data-deaths"]}>{processedData.latest_data.calculated.death_rate}</td>
-                            <td className={styles["data-recovered"]}>{processedData.latest_data.recovered}</td>
-                            <td className={styles["data-recovered"]}>{processedData.latest_data.calculated.recovery_rate}</td>
-                            <td className={styles["data-active"]}>{processedData.latest_data.active}</td>
-                            <td className={styles["data-critical"]}>{processedData.latest_data.critical}</td>
+                        <tr className={styles["table-row"]} key={country.code}>
+                            <td>{country.name.split(",")[0]}</td>
+                            <td className="confirmed">{processedCountryData.latest_data.confirmed}</td>
+                            <td className="confirmed">{processedCountryData.today.confirmed}</td>
+                            <td className="deaths">{processedCountryData.latest_data.deaths}</td>
+                            <td className="deaths">{processedCountryData.today.deaths}</td>
+                            <td className="deaths">{processedCountryData.latest_data.calculated.death_rate}</td>
+                            <td className="recovered">{processedCountryData.latest_data.recovered}</td>
+                            <td className="recovered">{processedCountryData.latest_data.calculated.recovery_rate}</td>
+                            <td className="active">{processedCountryData.latest_data.active}</td>
+                            <td className="critical">{processedCountryData.latest_data.critical}</td>
                         </tr>
                     )
                 });
+
+                let tHead = this.categories.map(category => {
+                    let classes = category === this.state.sort.category ? `${styles["category-name"]} ${styles["active-category"]}` : styles["category-name"];
+
+                    return (
+                        <th className={classes} onClick={() => this.handleActiveCategoryChange(category)}>{category}</th>
+                    );
+                })
     
                 containerInner = (
                     <>
@@ -65,17 +155,8 @@ class Countries extends React.Component {
                         <div className={styles.data}>
                             <table className={styles.table}>
                                 <thead>
-                                    <tr>
-                                        <th className={styles["category-name"]}>Country</th>
-                                        <th className={styles["category-name"]}>Confirmed</th>
-                                        <th className={styles["category-name"]}>Today confirmed</th>
-                                        <th className={styles["category-name"]}>Deaths</th>
-                                        <th className={styles["category-name"]}>Today deaths</th>
-                                        <th className={styles["category-name"]}>Deaths rate</th>
-                                        <th className={styles["category-name"]}>Recovered</th>
-                                        <th className={styles["category-name"]}>Recovery rate</th>
-                                        <th className={styles["category-name"]}>Existing</th>
-                                        <th className={styles["category-name"]}>Critical</th>
+                                    <tr className={styles["table-row"]}>
+                                        {tHead}
                                     </tr>
                                 </thead>
                                 <tbody>

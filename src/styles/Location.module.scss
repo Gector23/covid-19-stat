@@ -1,10 +1,8 @@
 @import './variables';
 
-$categories-height: ("s": 240px, "m": 95px, "l": 115px);
-
 .container {
     width: 100%;
-    height: $header-height + map-get($categories-height, "s");
+    height: map-get($location-height, "s");
     margin-bottom: map-get($vertical-indentation, "s");
     padding: {
         top: 0;
@@ -18,7 +16,7 @@ $categories-height: ("s": 240px, "m": 95px, "l": 115px);
     font-size: 18px;
 
     @media (min-width: 765px) {
-        height: $header-height + map-get($categories-height, "m");
+        height: map-get($location-height, "m");
         margin-bottom: map-get($vertical-indentation, "m");
         padding: {
             right: map-get($horizontal-indentation, "m");
@@ -27,7 +25,7 @@ $categories-height: ("s": 240px, "m": 95px, "l": 115px);
     }
 
     @media (min-width: 1300px) {
-        height: $header-height + map-get($categories-height, "l");
+        height: map-get($location-height, "l");
         margin-bottom: map-get($vertical-indentation, "l");
         padding: {
             right: map-get($horizontal-indentation, "l");
@@ -37,19 +35,22 @@ $categories-height: ("s": 240px, "m": 95px, "l": 115px);
 }
 
 .categories {
-    height: map-get($categories-height, "s");
-    padding-bottom: 15px;
+    height: map-get($location-categories-height, "s");
+    //padding-bottom: 20px;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    align-content: space-between;
     flex-wrap: wrap;
 
     @media (min-width: 765px) {
-        height: map-get($categories-height, "m");
+        height: map-get($location-categories-height, "m");
+        //padding-bottom: 40px;
     }
 
     @media (min-width: 1300px) {
-        height: map-get($categories-height, "l");
+        height: map-get($location-categories-height, "l");
+        //padding-bottom: 60px;
     }
 }
 

@@ -1,10 +1,19 @@
 @import './variables';
 
 .container {
-    height: $header-height;
+    height: map-get($header-height, "s");
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 20px;
     font-weight: 700;
+
+    @media (min-width: 765px) {
+        height: map-get($header-height, "m");
+        font-size: 22px;
+    }
+
+    @media (min-width: 1300px) {
+        height: map-get($header-height, "l");
+    }
 }

@@ -127,7 +127,7 @@ class Countries extends React.Component {
 
                     return (
                         <tr className={styles["table-row"]} key={country.code}>
-                            <td>{country.name.split(",")[0]}</td>
+                            <td>{country.name}</td>
                             <td className="confirmed">{processedCountryData.latest_data.confirmed}</td>
                             <td className="confirmed">{processedCountryData.today.confirmed}</td>
                             <td className="deaths">{processedCountryData.latest_data.deaths}</td>
@@ -145,7 +145,7 @@ class Countries extends React.Component {
                     let classes = category === this.state.sort.category ? `${styles["category-name"]} ${styles["active-category"]}` : styles["category-name"];
 
                     return (
-                        <th className={classes} onClick={() => this.handleActiveCategoryChange(category)}>{category}</th>
+                        <th className={classes} key={category} onClick={() => this.handleActiveCategoryChange(category)}>{category}</th>
                     );
                 })
     
@@ -155,7 +155,7 @@ class Countries extends React.Component {
                         <div className={styles.data}>
                             <table className={styles.table}>
                                 <thead>
-                                    <tr className={styles["table-row"]}>
+                                    <tr>
                                         {tHead}
                                     </tr>
                                 </thead>

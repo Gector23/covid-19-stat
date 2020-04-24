@@ -40,13 +40,14 @@ $active-table-color: #3c404d;
 
 .table {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border-collapse: collapse;
     text-align: left;
 }
 
 .category-name {
     width: 10%;
+    height: 50px;
     padding-right: 10px;
     font-size: 18px;
     color: $category-color;
@@ -55,6 +56,9 @@ $active-table-color: #3c404d;
     &:hover {
         background-color: $active-table-color;
     }
+
+    @media (min-width: 765px) {
+    }
 }
 
 .active-category {
@@ -62,7 +66,17 @@ $active-table-color: #3c404d;
 }
 
 .table-row {
-    height: 45px;
+    $row-height: ("s": 35px, "m": 40px, "l": 45px);
+
+    height:  map-get($row-height, "s");
+
+    @media (min-width: 765px) {
+        height:  map-get($row-height, "m");
+    }
+
+    @media (min-width: 1300px) {
+        height:  map-get($row-height, "l");
+    }
 
     &:hover {
         background-color: $active-table-color;

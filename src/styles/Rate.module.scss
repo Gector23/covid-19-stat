@@ -1,0 +1,77 @@
+@import './variables';
+
+.container {
+    height: map-get($rate-height, "s");
+
+    @media (min-width: 765px) {
+        height: map-get($rate-height, "m");
+    }
+
+    @media (min-width: 1300px) {
+        height: map-get($rate-height, "l");
+    }
+}
+
+.graph {
+    height:  map-get($rate-graph-height, "s");
+    padding-top: 20px;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    display: flex;
+
+    @media (min-width: 765px) {
+        height: map-get($rate-graph-height, "m");
+        padding-top: 40px;
+        padding-bottom: 0;
+    }
+
+    @media (min-width: 1300px) {
+        padding-top: 60px;
+        height: map-get($rate-graph-height, "l");
+    }
+}
+
+.recovery-graph {
+    width: 8.5%;
+    background-color: $recovered-color;
+}
+
+.active-graph {
+    width: 89%;
+    background-color: $active-color;
+}
+
+.deaths-graph {
+    width: 2.5%;
+    background-color: $deaths-color;
+}
+
+.categories {
+    height: map-get($rate-categories-height, "s");
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media (min-width: 765px) {
+        height: map-get($rate-categories-height, "m");
+        padding-bottom: 0;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    @media (min-width: 1300px) {
+        height: map-get($rate-categories-height, "l");
+    }
+}
+
+.category {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.category-name {
+    margin-right: 10px;
+    color: $category-color;
+}

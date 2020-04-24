@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header';
+import Rate from './Rate';
 import Loading from './Loading';
 import Error from './Error';
 import styles from '../styles/World.module.scss';
@@ -34,6 +35,9 @@ class World extends React.Component {
             } else {
                 let processedData = this.processTimelineData(this.props.timeline.data[0]);
 
+                const recoveryRate = this.props.timeline.data[0].recovered / (this.props.timeline.data[0].confirmed / 100);
+                const deathsRate = this.props.timeline.data[0].deaths / (this.props.timeline.data[0].confirmed / 100);
+
                 containerInner = (
                     <>
                         <Header header="World"></Header>
@@ -63,6 +67,7 @@ class World extends React.Component {
                                 </span>
                             </div>
                         </div>
+                        <Rate recoveryRate={recoveryRate} deathsRate={deathsRate}></Rate>
                     </>
                 );
             }

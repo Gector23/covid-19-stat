@@ -1,6 +1,28 @@
-$header-height: 60px;
+$header-height: ("s": 50px, "m": 55px, "l": 60px);
 
-$vertical-indentation: ("s": 10px, "m": 20px, "l": 40px);
+$rate-graph-height: ("s": 60px, "m": 70px, "l": 95px);
+$rate-categories-height: ("s": 120px, "m": 50px, "l": 60px);
+$rate-height: (
+    "s": map-get($rate-graph-height, "s") + map-get($rate-categories-height, "s"),
+    "m": map-get($rate-graph-height, "m") + map-get($rate-categories-height, "m"),
+    "l": map-get($rate-graph-height, "l") + map-get($rate-categories-height, "l")
+);
+
+$location-categories-height: ("s": 220px, "m": 80px, "l": 90px);
+$location-height: (
+    "s": map-get($header-height, "s") + map-get($location-categories-height, "s") + map-get($rate-height, "s"),
+    "m": map-get($header-height, "m") + map-get($location-categories-height, "m") + map-get($rate-height, "m"),
+    "l": map-get($header-height, "l") + map-get($location-categories-height, "l") + map-get($rate-height, "l")
+);
+
+$world-categories-height: ("s": 160px, "m": 50px, "l": 60px);
+$world-height: (
+    "s": map-get($header-height, "s") + map-get($world-categories-height, "s") + map-get($rate-height, "s"),
+    "m": map-get($header-height, "m") + map-get($world-categories-height, "m") + map-get($rate-height, "m"),
+    "l": map-get($header-height, "l") + map-get($world-categories-height, "l") + map-get($rate-height, "l")
+);
+
+$vertical-indentation: ("s": 15px, "m": 20px, "l": 40px);
 $horizontal-indentation: ("s": 10px, "m": 15px, "l": 20px);
 
 $containers-border-radius: 5px;

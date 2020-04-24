@@ -18,23 +18,22 @@
 }
 
 .header {
-    $header-height: ("s": 48px, "m": 60px, "l": 80px);
-    $header-font-size: ("s": 24px, "m": 30px, "l": 34px);
+    $header-font-size: ("s": 28px, "m": 30px, "l": 34px);
 
     width: 100%;
-    height: map-get($header-height, "s");
+    padding-bottom: map-get($vertical-indentation, "s");
     box-sizing: border-box;
     margin: 0;
     font-size: map-get($header-font-size, "s");
     text-align: center;
 
     @media (min-width: 765px) {
-        height: map-get($header-height, "m");
+        padding-bottom: map-get($vertical-indentation, "m");
         font-size: map-get($header-font-size, "m");
     }
 
     @media (min-width: 1300px) {
-        height: map-get($header-height, "l");
+        padding-bottom: map-get($vertical-indentation, "l");
         font-size: map-get($header-font-size, "l");
     }
 }

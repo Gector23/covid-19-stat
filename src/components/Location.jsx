@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header';
+import Rate from './Rate';
 import Loading from './Loading';
 import Error from './Error';
 import styles from '../styles/Location.module.scss';
@@ -20,6 +21,11 @@ class Location extends React.Component {
             } else if (typeof(obj[prop]) === "number") {
                 processedObj[prop] =  obj[prop] === 0 ? "-" : obj[prop].toLocaleString("ru");
             }
+        }
+
+        if ("name" in obj) {
+            processedObj.today.confirmed = "+" + processedObj.today.confirmed;
+            processedObj.today.deaths = "+" + processedObj.today.deaths;
         }
 
         return processedObj;
@@ -77,6 +83,7 @@ class Location extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        <Rate recoveryRate={this.props.local.latest_data.calculated.recovery_rate} deathsRate={this.props.local.latest_data.calculated.death_rate}></Rate>
                     </>
                 );
             }

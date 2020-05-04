@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import Rate from './Rate';
+import Updated from './Updated';
 import Loading from './Loading';
 import Error from './Error';
 import styles from '../styles/Location.module.scss';
@@ -17,15 +18,21 @@ class Location extends React.Component {
 
         for (let prop in obj) {
             if (typeof(obj[prop]) === "object" && obj[prop]) {
-                processedObj[prop] = this.processLocalData(obj[prop]);
+                if (prop === "today") {
+                    processedObj.today = {
+                        confirmed: "+" + obj.today.confirmed.toLocaleString("ru"),
+                        deaths: "+" + obj.today.deaths.toLocaleString("ru")
+                    };
+                } else {
+                    processedObj[prop] = this.processLocalData(obj[prop]);
+                }
             } else if (typeof(obj[prop]) === "number") {
                 processedObj[prop] =  obj[prop] === 0 ? "-" : obj[prop].toLocaleString("ru");
+            } else if (typeof(obj[prop]) === "string") {
+                if (prop === "updated_at") {
+                    processedObj.updated_at = new Date(Date.parse(obj.updated_at));
+                }
             }
-        }
-
-        if ("name" in obj) {
-            processedObj.today.confirmed = "+" + processedObj.today.confirmed;
-            processedObj.today.deaths = "+" + processedObj.today.deaths;
         }
 
         return processedObj;
@@ -84,6 +91,7 @@ class Location extends React.Component {
                             </div>
                         </div>
                         <Rate recoveryRate={this.props.local.latest_data.calculated.recovery_rate} deathsRate={this.props.local.latest_data.calculated.death_rate}></Rate>
+                        <Updated update={processedData.updated_at}></Updated>
                     </>
                 );
             }

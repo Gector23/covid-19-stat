@@ -1,31 +1,21 @@
 $header-height: ("s": 50px, "m": 55px, "l": 60px);
 
-$rate-graph-height: ("s": 60px, "m": 70px, "l": 95px);
-$rate-categories-height: ("s": 120px, "m": 50px, "l": 60px);
-$rate-height: (
-    "s": map-get($rate-graph-height, "s") + map-get($rate-categories-height, "s"),
-    "m": map-get($rate-graph-height, "m") + map-get($rate-categories-height, "m"),
-    "l": map-get($rate-graph-height, "l") + map-get($rate-categories-height, "l")
-);
+$graph-height: ("s": 10px, "m": 30px, "l": 35px);
+$rate-padding-top: ("s": 10px, "m": 25px, "l": 40px);
+$rate-categories-height: ("s": 110px, "m": 50px, "l": 60px);
 
 $location-categories-height: ("s": 220px, "m": 80px, "l": 90px);
-$location-height: (
-    "s": map-get($header-height, "s") + map-get($location-categories-height, "s") + map-get($rate-height, "s"),
-    "m": map-get($header-height, "m") + map-get($location-categories-height, "m") + map-get($rate-height, "m"),
-    "l": map-get($header-height, "l") + map-get($location-categories-height, "l") + map-get($rate-height, "l")
-);
+$location-height: ("s": 455px, "m": 280px, "l": 325px);
 
 $world-categories-height: ("s": 160px, "m": 50px, "l": 60px);
-$world-height: (
-    "s": map-get($header-height, "s") + map-get($world-categories-height, "s") + map-get($rate-height, "s"),
-    "m": map-get($header-height, "m") + map-get($world-categories-height, "m") + map-get($rate-height, "m"),
-    "l": map-get($header-height, "l") + map-get($world-categories-height, "l") + map-get($rate-height, "l")
-);
+$world-height: ("s": 395px, "m": 250px, "l": 295px);
 
-$vertical-indentation: ("s": 15px, "m": 20px, "l": 40px);
+$vertical-indentation: ("s": 5px, "m": 10px, "l": 20px);
 $horizontal-indentation: ("s": 10px, "m": 15px, "l": 20px);
 
 $containers-border-radius: 5px;
+
+$main-header-font-size: ("s": 28px, "m": 30px, "l": 34px);
 
 $page-bg: #202128;
 $containers-bg: #292b33;

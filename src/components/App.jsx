@@ -59,7 +59,7 @@ class App extends React.Component {
     render() {
         return(
             <div className={styles.container}>
-                <h1 className="header">Covid-19</h1>
+                <h1 className="main-header">Covid-19</h1>
                 <Location local={this.state.local}></Location>
                 <World timeline={this.state.timeline}></World>
                 <Countries countries={this.state.countries}></Countries>

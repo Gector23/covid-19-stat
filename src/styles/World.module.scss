@@ -3,7 +3,7 @@
 .container {
     width: 100%;
     height: map-get($world-height, "s");
-    margin-bottom: map-get($vertical-indentation, "s");
+    margin-bottom: map-get($vertical-indentation, "s") * 2;
     padding: {
         top: 0;
         right: map-get($horizontal-indentation, "s");
@@ -17,7 +17,7 @@
 
     @media (min-width: 765px) {
         height: map-get($world-height, "m");
-        margin-bottom: map-get($vertical-indentation, "m");
+        margin-bottom: map-get($vertical-indentation, "m") * 2;
         padding: {
             right: map-get($horizontal-indentation, "m");
             left: map-get($horizontal-indentation, "m");
@@ -26,7 +26,7 @@
 
     @media (min-width: 1300px) {
         height: map-get($world-height, "l");
-        margin-bottom: map-get($vertical-indentation, "l");
+        margin-bottom: map-get($vertical-indentation, "l") * 2;
         padding: {
             right: map-get($horizontal-indentation, "l");
             left: map-get($horizontal-indentation, "l");

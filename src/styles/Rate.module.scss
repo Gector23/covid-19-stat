@@ -1,54 +1,53 @@
 @import './variables';
 
 .container {
-    height: map-get($rate-height, "s");
+    padding-top: map-get($rate-padding-top, "s");
 
     @media (min-width: 765px) {
-        height: map-get($rate-height, "m");
+        padding-top: map-get($rate-padding-top, "m");
     }
 
     @media (min-width: 1300px) {
-        height: map-get($rate-height, "l");
+        padding-top: map-get($rate-padding-top, "l");
     }
 }
 
 .graph {
-    height:  map-get($rate-graph-height, "s");
-    padding-top: 20px;
-    padding-bottom: 15px;
+    height:  map-get($graph-height, "s");
     box-sizing: border-box;
     display: flex;
 
     @media (min-width: 765px) {
-        height: map-get($rate-graph-height, "m");
-        padding-top: 40px;
+        height: map-get($graph-height, "m");
         padding-bottom: 0;
     }
 
     @media (min-width: 1300px) {
-        padding-top: 60px;
-        height: map-get($rate-graph-height, "l");
+        height: map-get($graph-height, "l");
     }
 }
 
 .recovery-graph {
-    width: 8.5%;
+    width: 33%;
+    transition: width 5s;
     background-color: $recovered-color;
 }
 
-.active-graph {
-    width: 89%;
-    background-color: $active-color;
+.deaths-graph {
+    width: 34%;
+    transition: width 5s;
+    background-color: $deaths-color;
 }
 
-.deaths-graph {
-    width: 2.5%;
-    background-color: $deaths-color;
+.active-graph {
+    width: 33%;
+    transition: width 5s;
+    background-color: $active-color;
 }
 
 .categories {
     height: map-get($rate-categories-height, "s");
-    padding-bottom: 10px;
+    margin-top: 15px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -56,7 +55,7 @@
 
     @media (min-width: 765px) {
         height: map-get($rate-categories-height, "m");
-        padding-bottom: 0;
+        margin: 0;
         flex-direction: row;
         align-items: center;
     }
@@ -69,6 +68,10 @@
 .category {
     display: inline-flex;
     justify-content: space-between;
+
+    @media (min-width: 765px) {
+        width: 200px;
+    }
 }
 
 .category-name {

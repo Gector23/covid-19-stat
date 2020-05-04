@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import Rate from './Rate';
+import Updated from './Updated';
 import Loading from './Loading';
 import Error from './Error';
 import styles from '../styles/World.module.scss';
@@ -20,6 +21,10 @@ class World extends React.Component {
                 processedObj[prop] = this.processTimelineData(obj[prop]);
             } else if (typeof(obj[prop]) === "number") {
                 processedObj[prop] =  obj[prop] === 0 ? "-" : obj[prop].toLocaleString("ru");
+            } else if (typeof(obj[prop]) === "string") {
+                if (prop === "updated_at") {
+                    processedObj.updated_at = new Date(Date.parse(obj.updated_at));
+                }
             }
         }
 
@@ -68,6 +73,7 @@ class World extends React.Component {
                             </div>
                         </div>
                         <Rate recoveryRate={recoveryRate} deathsRate={deathsRate}></Rate>
+                        <Updated update={processedData.updated_at}></Updated>
                     </>
                 );
             }

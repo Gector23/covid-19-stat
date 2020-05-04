@@ -17,24 +17,22 @@
     }
 }
 
-.header {
-    $header-font-size: ("s": 28px, "m": 30px, "l": 34px);
-
+.main-header {
     width: 100%;
     padding-bottom: map-get($vertical-indentation, "s");
     box-sizing: border-box;
     margin: 0;
-    font-size: map-get($header-font-size, "s");
+    font-size: map-get($main-header-font-size, "s");
     text-align: center;
 
     @media (min-width: 765px) {
         padding-bottom: map-get($vertical-indentation, "m");
-        font-size: map-get($header-font-size, "m");
+        font-size: map-get($main-header-font-size, "m");
     }
 
     @media (min-width: 1300px) {
         padding-bottom: map-get($vertical-indentation, "l");
-        font-size: map-get($header-font-size, "l");
+        font-size: map-get($main-header-font-size, "l");
     }
 }
 

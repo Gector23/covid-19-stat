@@ -13,15 +13,17 @@ class Rate extends React.Component {
     }
 
     componentDidMount() {
-        this.recoveryRef.current.style.width = `${this.rate.recovery}%`;
-        this.deathsRef.current.style.width = `${this.rate.deaths}%`;
-        this.activeRef.current.style.width = `${this.rate.active}%`;
+        setTimeout(() => {
+            this.recoveryRef.current.style.width = `${this.rate.recovery}%`;
+            this.deathsRef.current.style.width = `${this.rate.deaths}%`;
+            this.activeRef.current.style.width = `${this.rate.active}%`;
+        }, 1000);
     }
         
     render() {
         this.rate.recovery = (Math.round(this.props.recoveryRate * 100) / 100);
         this.rate.deaths = (Math.round(this.props.deathsRate * 100) / 100);
-        this.rate.active = 100 - this.rate.recovery - this.rate.deaths;
+        this.rate.active = (Math.round((100 - this.rate.recovery - this.rate.deaths) * 100) / 100);
 
         return (
             <div className={styles.container}>

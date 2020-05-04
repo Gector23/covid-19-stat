@@ -26,16 +26,16 @@ class Countries extends React.Component {
         let processedObj = {};
 
         for (let prop in obj) {
-            if (typeof(obj[prop]) === "object" && obj[prop]) {
-                processedObj[prop] = this.processCountriesData(obj[prop]);
+            if (typeof(obj[prop]) === "object") {
+                if (obj[prop]) processedObj[prop] = this.processCountriesData(obj[prop]);
+                else processedObj[prop] = "-";
             } else if (typeof(obj[prop]) === "number") {
-                processedObj[prop] =  obj[prop] === 0 ? "-" : obj[prop].toLocaleString("ru");
+                if (obj[prop] === 0) {
+                    processedObj[prop] = "-";
+                } else {
+                    processedObj[prop] = prop === "death_rate" || prop === "recovery_rate" ? (Math.round(obj[prop] * 100) / 100) + "%" : obj[prop].toLocaleString("ru");
+                }
             }
-        }
-
-        if ("name" in obj) {
-            processedObj.latest_data.calculated.death_rate = (Math.round(obj.latest_data.calculated.death_rate * 100) / 100) + "%";
-            processedObj.latest_data.calculated.recovery_rate = (Math.round(obj.latest_data.calculated.recovery_rate * 100) / 100) + "%";
         }
 
         return processedObj;

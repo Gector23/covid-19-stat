@@ -122,7 +122,6 @@ class Countries extends React.Component {
                 this.sortData();
 
                 let tBody = this.props.countries.data.map(country => {
-
                     let processedCountryData = this.processCountriesData(country);
 
                     return (
@@ -142,7 +141,7 @@ class Countries extends React.Component {
                 });
 
                 let tHead = this.categories.map(category => {
-                    let classes = category === this.state.sort.category ? `${styles["category-name"]} ${styles["active-category"]}` : styles["category-name"];
+                    const classes = category === this.state.sort.category ? `${styles["category-name"]} active-element` : styles["category-name"];
 
                     return (
                         <th className={classes} key={category} onClick={() => this.handleActiveCategoryChange(category)}>{category}</th>

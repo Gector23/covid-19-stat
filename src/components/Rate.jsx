@@ -19,18 +19,24 @@ class Rate extends React.Component {
             this.activeRef.current.style.width = `${this.rate.active}%`;
         }, 1000);
     }
+
+    componentDidUpdate() {
+        this.recoveryRef.current.style.width = `${this.rate.recovery}%`;
+        this.deathsRef.current.style.width = `${this.rate.deaths}%`;
+        this.activeRef.current.style.width = `${this.rate.active}%`;
+    }
         
     render() {
-        this.rate.recovery = (Math.round(this.props.recoveryRate * 100) / 100);
-        this.rate.deaths = (Math.round(this.props.deathsRate * 100) / 100);
+        this.rate.recovery = (Math.round(this.props.days[this.props.day].recovered.origin / (this.props.days[this.props.day].confirmed.origin / 100) * 100) / 100);
+        this.rate.deaths = (Math.round(this.props.days[this.props.day].deaths.origin / (this.props.days[this.props.day].confirmed.origin / 100) * 100) / 100);
         this.rate.active = (Math.round((100 - this.rate.recovery - this.rate.deaths) * 100) / 100);
 
         return (
             <div className={styles.container}>
                 <div className={styles.graph}>
-                    <div className={styles["recovery-graph"]} ref={this.recoveryRef}></div>
-                    <div className={styles["deaths-graph"]} ref={this.deathsRef}></div>
-                    <div className={styles["active-graph"]} ref={this.activeRef}></div>      
+                    <div className={`${styles.row} ${styles["recovery-row"]}`} ref={this.recoveryRef}></div>
+                    <div className={`${styles.row} ${styles["deaths-row"]}`} ref={this.deathsRef}></div>
+                    <div className={`${styles.row} ${styles["active-row"]}`} ref={this.activeRef}></div>      
                 </div>
                 <div className={styles.categories}>
                     <div className={styles.category}>

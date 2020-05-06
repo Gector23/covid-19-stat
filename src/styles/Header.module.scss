@@ -1,7 +1,7 @@
 @import './variables';
 
 .container {
-    height: map-get($header-height, "s");
+    padding: map-get($header-padding, "s");
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,11 +9,11 @@
     font-weight: 700;
 
     @media (min-width: 765px) {
-        height: map-get($header-height, "m");
+        padding: map-get($header-padding, "m");
         font-size: 22px;
     }
 
     @media (min-width: 1300px) {
-        height: map-get($header-height, "l");
+        padding: map-get($header-padding, "l");
     }
 }

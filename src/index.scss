@@ -2,19 +2,23 @@
 
 .page {
     margin: 0;
-    padding: map-get($vertical-indentation, "s") 10px;
+    padding: map-get($vertical-indentation, "s") 10px 0;
     background-color: $page-bg;
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     color: #ffffff;
 
     @media (min-width: 765px) {
-        padding: map-get($vertical-indentation, "m") 10px;
+        padding: map-get($vertical-indentation, "m") 10px 0;
     }
 
     @media (min-width: 1300px) {
-        padding: map-get($vertical-indentation, "l") 10px;
+        padding: map-get($vertical-indentation, "l") 10px 0;
     }
+}
+
+.header, .footer {
+    width: 100%;
 }
 
 .main-header {
@@ -34,6 +38,36 @@
         padding-bottom: map-get($vertical-indentation, "l");
         font-size: map-get($main-header-font-size, "l");
     }
+}
+
+.footer {
+    padding: 40px 0;
+    text-align: center;
+}
+
+.link {
+    color: #ffffff;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &:active {
+        color: #ffffff;
+    }
+
+    &:link {
+        color: #ffffff;
+    }
+
+    &:focus {
+        color: #ffffff;
+    }
+}
+
+.active-element{
+    background-color: $active-element-color;
 }
 
 .confirmed {

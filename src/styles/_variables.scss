@@ -1,14 +1,22 @@
-$header-height: ("s": 50px, "m": 55px, "l": 60px);
+$header-padding: ("s": 12px 0, "m": 14px 0, "l": 17px 0);
 
-$graph-height: ("s": 10px, "m": 30px, "l": 35px);
+$rate-graph-height: ("s": 10px, "m": 30px, "l": 35px);
 $rate-padding-top: ("s": 10px, "m": 25px, "l": 40px);
-$rate-categories-height: ("s": 110px, "m": 50px, "l": 60px);
+$rate-categories-padding: ("s": 15px 0, "m": 25px 0, "l": 30px 0);
+
+$histogram-graph-padding-top: ("s": 10px, "m": 15px, "l": 20px);
+$histogram-categories-padding: ("s": 5px 0, "m": 15px 0, "l": 20px 0);
+$histogram-column-width: ("s": 30px, "m": 40px, "l": 50px);
+
+$date-padding: ("s": 3px 0, "m": 7px 0, "l": 10px 0);
+
+$updated-padding-bottom: ("s": 10px, "m": 15px, "l": 20px);
 
 $location-categories-height: ("s": 220px, "m": 80px, "l": 90px);
-$location-height: ("s": 455px, "m": 280px, "l": 325px);
 
-$world-categories-height: ("s": 160px, "m": 50px, "l": 60px);
-$world-height: ("s": 395px, "m": 250px, "l": 295px);
+$world-categories-padding: ("s": 20px 0, "m": 10px 0, "l": 15px 0);
+
+$countries-row-height: ("s": 35px, "m": 40px, "l": 45px);
 
 $vertical-indentation: ("s": 5px, "m": 10px, "l": 20px);
 $horizontal-indentation: ("s": 10px, "m": 15px, "l": 20px);
@@ -19,6 +27,7 @@ $main-header-font-size: ("s": 28px, "m": 30px, "l": 34px);
 
 $page-bg: #202128;
 $containers-bg: #292b33;
+$active-element-color: #3c404d;
 $category-color: #c6c7c7;
 
 $confirmed-color: #ffc538;

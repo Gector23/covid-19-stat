@@ -1,0 +1,24 @@
+@import './variables';
+
+.dates {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.date {
+    width: map-get($histogram-column-width, "s");
+    padding: map-get($date-padding, "s");
+    text-align: center;
+    cursor: pointer;
+
+    @media (min-width: 765px) {
+        width: map-get($histogram-column-width, "m");
+        padding: map-get($date-padding, "m");
+    }
+
+    @media (min-width: 1300px) {
+        width: map-get($histogram-column-width, "l");
+        padding: map-get($date-padding, "l");
+    }
+}

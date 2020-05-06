@@ -13,63 +13,61 @@
 }
 
 .graph {
-    height:  map-get($graph-height, "s");
+    height:  map-get($rate-graph-height, "s");
     box-sizing: border-box;
     display: flex;
 
     @media (min-width: 765px) {
-        height: map-get($graph-height, "m");
+        height: map-get($rate-graph-height, "m");
         padding-bottom: 0;
     }
 
     @media (min-width: 1300px) {
-        height: map-get($graph-height, "l");
+        height: map-get($rate-graph-height, "l");
     }
 }
 
-.recovery-graph {
-    width: 33%;
-    transition: width 5s;
+.row {
+    width: 33.33333333%;
+    transition: width 3s;
+}
+
+.recovery-row {
     background-color: $recovered-color;
 }
 
-.deaths-graph {
-    width: 34%;
-    transition: width 5s;
+.deaths-row {
     background-color: $deaths-color;
 }
 
-.active-graph {
-    width: 33%;
-    transition: width 5s;
+.active-row {
     background-color: $active-color;
 }
 
 .categories {
-    height: map-get($rate-categories-height, "s");
-    margin-top: 15px;
+    padding: map-get($rate-categories-padding, "s");
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     @media (min-width: 765px) {
-        height: map-get($rate-categories-height, "m");
-        margin: 0;
+        padding: map-get($rate-categories-padding, "m");
         flex-direction: row;
-        align-items: center;
     }
 
     @media (min-width: 1300px) {
-        height: map-get($rate-categories-height, "l");
+        padding: map-get($rate-categories-padding, "l");
     }
 }
 
 .category {
+    margin: 10px 0;
     display: inline-flex;
     justify-content: space-between;
 
     @media (min-width: 765px) {
+        margin: 0;
         width: 200px;
     }
 }

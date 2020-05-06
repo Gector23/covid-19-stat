@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from './Header';
 import Rate from './Rate';
+import Dates from './Dates';
+import Histogram from './Histogram';
 import Updated from './Updated';
 import Loading from './Loading';
 import Error from './Error';
@@ -10,25 +12,42 @@ class World extends React.Component {
     constructor(props) {
         super(props);
 
-        this.processTimelineData = this.processTimelineData.bind(this);
+        this.state = {
+            day: 0
+        };
+
+        this.handleDayChange = this.handleDayChange.bind(this);
     }
 
-    processTimelineData(obj) {
-        let processedObj = {};
+    processTimelineData(arr) {
+        let processedArr = [];
 
-        for (let prop in obj) {
-            if (typeof(obj[prop]) === "object" && obj[prop]) {
-                processedObj[prop] = this.processTimelineData(obj[prop]);
-            } else if (typeof(obj[prop]) === "number") {
-                processedObj[prop] =  obj[prop] === 0 ? "-" : obj[prop].toLocaleString("ru");
-            } else if (typeof(obj[prop]) === "string") {
-                if (prop === "updated_at") {
-                    processedObj.updated_at = new Date(Date.parse(obj.updated_at));
+        for (let i = 0; i < 10; i++) {
+            let processedObj = {};
+
+            for (let prop in arr[i]) {
+                if (typeof(arr[i][prop]) === "number") {
+                    processedObj[prop] = {
+                        origin: arr[i][prop],
+                        processed: arr[i][prop] === 0 ? "-" : arr[i][prop].toLocaleString("ru")
+                    }
+                } else if (typeof(arr[i][prop]) === "string") {
+                    if (prop === "updated_at") {
+                        processedObj.updated_at = new Date(Date.parse(arr[i].updated_at));
+                    }
                 }
             }
+
+            processedArr.push(processedObj);
         }
 
-        return processedObj;
+        return processedArr;
+    }
+
+    handleDayChange(day) {
+        this.setState(() => {
+            return {day};
+        })
     }
 
     render() {
@@ -38,10 +57,7 @@ class World extends React.Component {
             if ("message" in this.props.timeline) {
                 containerInner = <Error message={this.props.timeline.message}></Error>
             } else {
-                let processedData = this.processTimelineData(this.props.timeline.data[0]);
-
-                const recoveryRate = this.props.timeline.data[0].recovered / (this.props.timeline.data[0].confirmed / 100);
-                const deathsRate = this.props.timeline.data[0].deaths / (this.props.timeline.data[0].confirmed / 100);
+                let processedData = this.processTimelineData(this.props.timeline.data);
 
                 containerInner = (
                     <>
@@ -50,30 +66,32 @@ class World extends React.Component {
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Confirmed:</span>
                                 <span className="confirmed">
-                                    {processedData.confirmed}
+                                    {processedData[this.state.day].confirmed.processed}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Deaths:</span>
                                 <span className="deaths">
-                                    {processedData.deaths}
+                                    {processedData[this.state.day].deaths.processed}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Recovered:</span>
                                 <span className="recovered">
-                                    {processedData.recovered}
+                                    {processedData[this.state.day].recovered.processed}
                                 </span>
                             </div>
                             <div className={styles.category}>
                                 <span className={styles["category-name"]}>Active:</span>
                                 <span className="active">
-                                    {processedData.active}
+                                    {processedData[this.state.day].active.processed}
                                 </span>
                             </div>
                         </div>
-                        <Rate recoveryRate={recoveryRate} deathsRate={deathsRate}></Rate>
-                        <Updated update={processedData.updated_at}></Updated>
+                        <Rate days={processedData} day={this.state.day}></Rate>
+                        <Dates days={processedData} day={this.state.day} onDayChange={this.handleDayChange}></Dates>
+                        <Histogram days={processedData}></Histogram>
+                        <Updated update={processedData[this.state.day].updated_at}></Updated>
                     </>
                 );
             }

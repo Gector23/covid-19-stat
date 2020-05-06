@@ -1,10 +1,8 @@
 @import './variables';
 
-$active-table-color: #3c404d;
-
 .container {
     width: 100%;
-    min-height: 175px;
+    min-height: 200px;
     padding: {
         top: 0;
         right: map-get($horizontal-indentation, "s");
@@ -54,31 +52,22 @@ $active-table-color: #3c404d;
     cursor: pointer;
 
     &:hover {
-        background-color: $active-table-color;
+        background-color: $active-element-color;
     }
-
-    @media (min-width: 765px) {
-    }
-}
-
-.active-category {
-    background-color: $active-table-color;
 }
 
 .table-row {
-    $row-height: ("s": 35px, "m": 40px, "l": 45px);
-
-    height:  map-get($row-height, "s");
+    height:  map-get($countries-row-height, "s");
 
     @media (min-width: 765px) {
-        height:  map-get($row-height, "m");
+        height:  map-get($countries-row-height, "m");
     }
 
     @media (min-width: 1300px) {
-        height:  map-get($row-height, "l");
+        height:  map-get($countries-row-height, "l");
     }
 
     &:hover {
-        background-color: $active-table-color;
+        background-color: $active-element-color;
     }
 }

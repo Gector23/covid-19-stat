@@ -1,0 +1,75 @@
+@import './variables';
+
+.graph {
+    height: 150px;
+    padding-top: map-get($histogram-graph-padding-top, "s");
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    @media (min-width: 765px) {
+        padding-top: map-get($histogram-graph-padding-top, "m");  
+    }
+
+    @media (min-width: 1300px) {
+        padding-top: map-get($histogram-graph-padding-top, "l");
+    }
+}
+
+.column {
+    width: map-get($histogram-column-width, "s");
+    height: 50%;
+    transition: height 3s;
+
+    @media (min-width: 765px) {
+        width: map-get($histogram-column-width, "m"); 
+    }
+
+    @media (min-width: 1300px) {
+        width: map-get($histogram-column-width, "l");
+    }
+}
+
+.confirmed-column {
+    background-color: $confirmed-color;
+}
+
+.deaths-column {
+    background-color: $deaths-color;
+}
+
+.recovered-column {
+    background-color: $recovered-color;
+}
+
+.categories {
+    padding: map-get($histogram-categories-padding, "s");
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (min-width: 765px) {
+        padding: map-get($histogram-categories-padding, "m");
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    @media (min-width: 1300px) {
+        padding: map-get($histogram-categories-padding, "l");
+    }
+}
+
+.category {
+    width: 120px;
+    margin: 10px 0;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+
+    @media (min-width: 765px) {
+        margin: 0;
+    }
+}
